@@ -12,10 +12,12 @@ angular.module('timerApp').controller('StatCtrl', ['$scope', 'TasksService',  fu
     
       if(arr){
         var arrForG = arrValGraph(arr);
+            $scope.isDataEmpty  = false;
             valPieChart =  mkValForPieChart(arrForG);
             valHorizChart = mkValForHorizChart(arrForG);
       }else{
-          return false;
+            $scope.isDataEmpty  = true;
+            return false;
       };
     	
       $scope.dataHorizChart = valHorizChart; 
@@ -41,9 +43,9 @@ angular.module('timerApp').controller('StatCtrl', ['$scope', 'TasksService',  fu
    
       $scope.setPositionSVG = function(){
         return function(){ 
-          d3.select("svg").attr("viewBox","0 50 400 200");
+          d3.select("svg").attr("viewBox","-45 5 600 250");
         }
-      }; 
+      };
     
       $scope.toFormatToolTipPieContent = function(){   
 	    return function(key, x) {
@@ -66,8 +68,8 @@ angular.module('timerApp').controller('StatCtrl', ['$scope', 'TasksService',  fu
       function arrValGraph(arr){
         var arrToGraph = [];
           arr.forEach(function(obj){
-            for (var key in obj ){
-                if(key=='currentTime'||key=='name')arrToGraph.push(obj[key]);    
+            for ( var key in obj ){
+                if ( key==='currentTime'|| key==='name' ) arrToGraph.push(obj[key]);    
             }       
           });  
           return arrToGraph;
@@ -76,24 +78,24 @@ angular.module('timerApp').controller('StatCtrl', ['$scope', 'TasksService',  fu
       function mkValForHorizChart(arr){
         var grphArr =[],
             nameArr =[];
-        arr.forEach(function(e, i){
-      var arrNew=[];
-    if(typeof(e)!=='string'){
-        arrNew.push(i, e);
-        grphArr.push(arrNew);
-    }else{
-        nameArr.push(e+' ');
-    }
-          });
+            arr.forEach(function(e, i){
+              var arrNew=[];
+                  if (typeof(e) !=='string'){
+                     arrNew.push(i, e);
+                     grphArr.push(arrNew);
+                  }else{
+                     nameArr.push(e+' ');
+                  }
+           });
         var hashData = {
               'key':nameArr,
               'values':grphArr
             };
         var arrHorizChart = [];
-            arrHorizChart.push(hashData);
-            return arrHorizChart;
+              arrHorizChart.push(hashData);
+              return arrHorizChart;
       }; 
-    
+     
       function mkValForPieChart(arr){
          var obj = {},
              pieValArr=[];

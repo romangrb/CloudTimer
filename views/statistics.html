@@ -2,29 +2,12 @@
   <div>
     <md-content class="md-padding" >
       <md-tabs md-dynamic-height md-border-bottom>   
-        <md-tab label="Horizontal bar chart">
-          <md-content class="md-padding">
-            <h1 class="md-align-c">Tasks progress</h1>           		  
-		      <nvd3-multi-bar-horizontal-chart
-    	         id="horizChart"
-                 data="dataHorizChart"          
-                 width="450"
-                 height="200"
-                 callback="positionSVG()"           
-                 callback="callbackStyleFunction()"
-                 showXAxis="false"
-                 showYAxis="true" 
-                 showValues="true"
-                 valueFormat="toSecondsFormat()"
-                 noData="There no tasks">
-            	  <svg></svg>
-                </nvd3-multi-bar-horizontal-chart>    
-              
-          </md-content>
-        </md-tab>
         <md-tab label="Pie chart"> 
           <md-content class="md-padding">
             <h1 class="md-align-c">Tasks progress</h1>
+              <h2 class="md-align-c" ng-hide="!isDataEmpty">
+               The data for tasks is empty, and chart cannot be displayed !
+              </h2>
               <nvd3-pie-chart
                  id="pieChart"
                  data="dataPieChart"
@@ -44,11 +27,32 @@
                  donutLabelsOutside="true"            
                  tooltips="true"
                  tooltipcontent="toFormatToolTipPieContent()"
-                 noData="There no tasks">
+                                                            >            
                 <svg></svg>
               </nvd3-pie-chart>
          </md-content>
-        </md-tab> 
+        </md-tab>
+        <md-tab label="Horizontal bar chart">
+          <md-content class="md-padding">
+            <h1 class="md-align-c">Tasks progress</h1>
+              <h2 class="md-align-c" ng-hide="!isDataEmpty">
+              The data for tasks is empty, and chart cannot be displayed !
+              </h2>
+		      <nvd3-multi-bar-horizontal-chart
+    	         id="horizChart"
+                 data="dataHorizChart"          
+                 width="450"
+                 height="180"          
+                 callback="callbackStyleFunction()"
+                 showXAxis="false"
+                 showYAxis="true" 
+                 showValues="true"
+                 valueFormat="toSecondsFormat()"
+                                                >
+            	  <svg></svg>
+                </nvd3-multi-bar-horizontal-chart>    
+          </md-content>
+        </md-tab>
       </md-tabs>
     </md-content>
   </div>   
